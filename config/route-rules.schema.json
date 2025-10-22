@@ -1,0 +1,297 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TCaps Mobile Route Rules Schema",
+  "description": "JSON schema for validating routing configuration rules in TCaps Mobile",
+  "type": "object",
+  "required": ["roles", "tabConfigs", "screenConfigs", "roleConfigs"],
+  "properties": {
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["Admin", "Lead", "QC", "Staff"]
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "tabConfigs": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+          "type": "object",
+          "required": ["name", "title", "icon", "allowedRoles", "requiresAuth"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "icon": {
+              "type": "string",
+              "minLength": 1
+            },
+            "allowedRoles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Admin", "Lead", "QC", "Staff"]
+              },
+              "minItems": 1
+            },
+            "requiresAuth": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "screenConfigs": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9_.-]+$": {
+          "type": "object",
+          "required": ["path", "title", "allowedRoles", "requiresAuth"],
+          "properties": {
+            "path": {
+              "type": "string",
+              "pattern": "^/[a-zA-Z0-9_/:\\[\\]]*$"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "allowedRoles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Admin", "Lead", "QC", "Staff"]
+              },
+              "minItems": 1
+            },
+            "requiresAuth": {
+              "type": "boolean"
+            },
+            "parentTab": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "roleConfigs": {
+      "type": "object",
+      "patternProperties": {
+        "^(Admin|Lead|QC|Staff)$": {
+          "type": "object",
+          "required": ["role", "displayName", "description", "allowedTabs", "allowedScreens", "hierarchy"],
+          "properties": {
+            "role": {
+              "type": "string",
+              "enum": ["Admin", "Lead", "QC", "Staff"]
+            },
+            "displayName": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "allowedTabs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "allowedScreens": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 0
+            },
+            "hierarchy": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4
+            }
+          }
+        }
+      }
+    },
+    "roleHierarchy": {
+      "type": "object",
+      "patternProperties": {
+        "^(Admin|Lead|QC|Staff)$": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "patternProperties": {
+        "^(Admin|Lead|QC|Staff)$": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "features": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9_-]+$": {
+          "type": "object",
+          "required": ["name", "description", "requiredPermissions"],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "requiredPermissions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "allowedRoles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["Admin", "Lead", "QC", "Staff"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "navigationStructure": {
+      "type": "object",
+      "patternProperties": {
+        "^(Admin|Lead|QC|Staff)$": {
+          "type": "object",
+          "required": ["main"],
+          "properties": {
+            "main": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "features": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "subRoutes": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "urlPatterns": {
+      "type": "object",
+      "properties": {
+        "tabRoutes": {
+          "type": "string",
+          "pattern": "^/(tabs)/[a-zA-Z0-9_-]+$"
+        },
+        "stackRoutes": {
+          "type": "string",
+          "pattern": "^/(tabs)/\\([a-zA-Z0-9_-]+\\)/[a-zA-Z0-9_-]+$"
+        },
+        "detailRoutes": {
+          "type": "string",
+          "pattern": "^/(tabs)/\\([a-zA-Z0-9_-]+\\)/[a-zA-Z0-9_-]+/\\[id\\]$"
+        },
+        "actionRoutes": {
+          "type": "string",
+          "pattern": "^/(tabs)/\\([a-zA-Z0-9_-]+\\)/[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+$"
+        }
+      }
+    },
+    "componentNaming": {
+      "type": "object",
+      "properties": {
+        "pageComponents": {
+          "type": "string",
+          "enum": ["PascalCase", "camelCase", "kebab-case", "snake_case"]
+        },
+        "layoutComponents": {
+          "type": "string",
+          "enum": ["PascalCase", "camelCase", "kebab-case", "snake_case"]
+        },
+        "uiComponents": {
+          "type": "string",
+          "enum": ["PascalCase", "camelCase", "kebab-case", "snake_case"]
+        },
+        "suffixes": {
+          "type": "object",
+          "properties": {
+            "form": {
+              "type": "string"
+            },
+            "list": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "create": {
+              "type": "string"
+            },
+            "edit": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "folderStructure": {
+      "type": "object",
+      "properties": {
+        "tabs": {
+          "type": "string",
+          "pattern": "^app/\\(tabs\\)$"
+        },
+        "stacks": {
+          "type": "string",
+          "pattern": "^app/\\(tabs\\)/\\([a-zA-Z0-9_-]+\\)$"
+        },
+        "components": {
+          "type": "string",
+          "pattern": "^app/components$"
+        },
+        "context": {
+          "type": "string",
+          "pattern": "^app/context$"
+        },
+        "config": {
+          "type": "string",
+          "pattern": "^config$"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
