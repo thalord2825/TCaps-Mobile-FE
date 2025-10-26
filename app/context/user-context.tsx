@@ -20,6 +20,7 @@ export interface UserInfo {
   role: UserRole;
   avatarUri?: string;
   unreadCount?: number;
+  factoryId?: string; // For QC role to know which factory they're assigned to
 }
 
 const UserContext = createContext<UserInfo | undefined>(undefined);
@@ -38,6 +39,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     name: "NGUYEN TRUNG HIEU",
     role: currentRole,
     unreadCount: 9,
+    factoryId: currentRole === "QC" ? "F001" : undefined, // Sample factory assignment for QC
   };
 
   const actionsValue = {

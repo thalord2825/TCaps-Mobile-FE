@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { FlatList, Pressable, RefreshControl, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SectionCard } from "../components/common/section-card";
+import { ThemeToggle } from "../components/common/theme-toggle";
 import { useTheme } from "../context/theme-context";
 import { useUser } from "../context/user-context";
 import { Delivery as DeliveryType, getDeliveryStats, sampleDeliveries } from "../data/sample-deliveries";
@@ -254,9 +255,12 @@ export default function Delivery() {
         >
           Giao hàng
         </Text>
-        <Pressable>
-          <FontAwesome name="map-marker" size={20} color={isDark ? "#fff" : colors.textHigh} />
-        </Pressable>
+        <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
+          <ThemeToggle />
+          <Pressable>
+            <FontAwesome name="map-marker" size={20} color={isDark ? "#fff" : colors.textHigh} />
+          </Pressable>
+        </View>
       </View>
 
       <FlatList

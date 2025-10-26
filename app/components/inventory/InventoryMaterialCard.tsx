@@ -1,6 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { Pressable, Text, useColorScheme, View } from "react-native";
-import Colors from "../../../constants/Colors";
+import { Pressable, Text, View } from "react-native";
 import { useTheme } from "../../context/theme-context";
 import type { MaterialItem } from "../../data/sample-materials";
 
@@ -9,23 +8,19 @@ export interface InventoryMaterialCardProps {
   onViewHistory?: (materialId: string) => void;
 }
 
-function getStockStatus(quantity: number, minThreshold: number, isDark: boolean) {
-  if (quantity === 0)
-    return { label: "Inactive", color: isDark ? "#f87171" : "#dc2626", bgColor: isDark ? "#1f2937" : "#f8fafc" };
+function getStockStatus(quantity: number, minThreshold: number, colors: any) {
+  if (quantity === 0) return { label: "Inactive", color: colors.error, bgColor: colors.surfaceVariant };
   if (quantity < minThreshold * 0.5)
-    return { label: "Low Stock", color: isDark ? "#fbbf24" : "#d97706", bgColor: isDark ? "#1f2937" : "#f8fafc" };
-  if (quantity < minThreshold)
-    return { label: "Warning", color: isDark ? "#fbbf24" : "#d97706", bgColor: isDark ? "#1f2937" : "#f8fafc" };
-  return { label: "Active", color: isDark ? "#4ade80" : "#16a34a", bgColor: isDark ? "#1f2937" : "#f8fafc" };
+    return { label: "Low Stock", color: colors.warning, bgColor: colors.surfaceVariant };
+  if (quantity < minThreshold) return { label: "Warning", color: colors.warning, bgColor: colors.surfaceVariant };
+  return { label: "Active", color: colors.success, bgColor: colors.surfaceVariant };
 }
 
 export function InventoryMaterialCard({ item, onViewHistory }: InventoryMaterialCardProps) {
-  const { colors } = useTheme();
-  const scheme = useColorScheme();
-  const C = scheme === "dark" ? Colors.Dark : Colors.Light;
-  const isDark = scheme === "dark";
+  const { colors, theme } = useTheme();
+  const isDark = theme === "dark";
 
-  const stockStatus = getStockStatus(item.quantity, item.minThreshold, isDark);
+  const stockStatus = getStockStatus(item.quantity, item.minThreshold, colors);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("vi-VN", {
@@ -37,7 +32,7 @@ export function InventoryMaterialCard({ item, onViewHistory }: InventoryMaterial
   return (
     <View
       style={{
-        backgroundColor: C.card,
+        backgroundColor: colors.surface,
         borderRadius: 16,
         padding: 16,
         flexDirection: "row",
@@ -95,7 +90,7 @@ export function InventoryMaterialCard({ item, onViewHistory }: InventoryMaterial
       <View style={{ flex: 1, gap: 8 }}>
         <Text
           style={{
-            color: isDark ? "#fff" : colors.textHigh,
+            color: colors.textHigh,
             fontSize: 16,
             fontWeight: "700",
           }}
@@ -133,7 +128,7 @@ export function InventoryMaterialCard({ item, onViewHistory }: InventoryMaterial
       <View style={{ alignItems: "flex-end", gap: 8 }}>
         <Text
           style={{
-            color: isDark ? "#fff" : colors.textHigh,
+            color: colors.textHigh,
             fontSize: 18,
             fontWeight: "700",
           }}
@@ -143,12 +138,12 @@ export function InventoryMaterialCard({ item, onViewHistory }: InventoryMaterial
 
         <View
           style={{
-            backgroundColor: stockStatus.bgColor,
+            backgroundColor: colors.surfaceVariant,
             paddingHorizontal: 12,
             paddingVertical: 6,
             borderRadius: 16,
             borderWidth: 1,
-            borderColor: isDark ? colors.borderVariant : colors.border,
+            borderColor: colors.border,
           }}
         >
           <Text

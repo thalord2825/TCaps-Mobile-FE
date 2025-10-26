@@ -1,6 +1,9 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 export type Theme = "dark" | "light";
+
+const THEME_STORAGE_KEY = "@theme_preference";
 
 export interface ThemeColors {
   // Background colors
@@ -106,16 +109,51 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("dark");
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load theme from storage on mount
+  useEffect(() => {
+    const loadTheme = async () => {
+      try {
+        const savedTheme = await AsyncStorage.getItem(THEME_STORAGE_KEY);
+        if (savedTheme === "dark" || savedTheme === "light") {
+          setThemeState(savedTheme);
+        }
+      } catch (error) {
+        console.error("Failed to load theme from storage:", error);
+      } finally {
+        setIsLoaded(true);
+      }
+    };
+
+    loadTheme();
+  }, []);
 
   const colors = theme === "dark" ? darkTheme : lightTheme;
 
   const toggleTheme = () => {
-    setThemeState((prev) => (prev === "dark" ? "light" : "dark"));
+    setThemeState((prev) => {
+      const newTheme = prev === "dark" ? "light" : "dark";
+      // Save theme preference
+      AsyncStorage.setItem(THEME_STORAGE_KEY, newTheme).catch((error) =>
+        console.error("Failed to save theme to storage:", error)
+      );
+      return newTheme;
+    });
   };
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
+    // Save theme preference
+    AsyncStorage.setItem(THEME_STORAGE_KEY, newTheme).catch((error) =>
+      console.error("Failed to save theme to storage:", error)
+    );
   };
+
+  // Don't render children until theme is loaded to avoid flash
+  if (!isLoaded) {
+    return null;
+  }
 
   return <ThemeContext.Provider value={{ theme, colors, toggleTheme, setTheme }}>{children}</ThemeContext.Provider>;
 }

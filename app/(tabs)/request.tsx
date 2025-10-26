@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { useCallback, useMemo, useState } from "react";
 import { Alert, FlatList, Pressable, RefreshControl, Text, TextInput, useColorScheme, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemeToggle } from "../components/common/theme-toggle";
 import { Toast } from "../components/common/Toast";
 import { BatchActionBar } from "../components/request/BatchActionBar";
 import { MaterialDistributionModal } from "../components/request/MaterialDistributionModal";
@@ -288,33 +289,36 @@ export default function Request() {
         >
           Quản lý yêu cầu
         </Text>
-        <View style={{ position: "relative" }}>
-          <FontAwesome name="bell" size={20} color={isDark ? "#fff" : colors.textHigh} />
-          {pendingCount > 0 && (
-            <View
-              style={{
-                position: "absolute",
-                top: -4,
-                right: -4,
-                backgroundColor: "#ef4444",
-                borderRadius: 8,
-                paddingHorizontal: 4,
-                paddingVertical: 2,
-                minWidth: 16,
-                alignItems: "center",
-              }}
-            >
-              <Text
+        <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
+          <ThemeToggle />
+          <View style={{ position: "relative" }}>
+            <FontAwesome name="bell" size={20} color={isDark ? "#fff" : colors.textHigh} />
+            {pendingCount > 0 && (
+              <View
                 style={{
-                  color: "#FFFFFF",
-                  fontSize: 10,
-                  fontWeight: "700",
+                  position: "absolute",
+                  top: -4,
+                  right: -4,
+                  backgroundColor: "#ef4444",
+                  borderRadius: 8,
+                  paddingHorizontal: 4,
+                  paddingVertical: 2,
+                  minWidth: 16,
+                  alignItems: "center",
                 }}
               >
-                {pendingCount > 99 ? "99+" : pendingCount}
-              </Text>
-            </View>
-          )}
+                <Text
+                  style={{
+                    color: "#FFFFFF",
+                    fontSize: 10,
+                    fontWeight: "700",
+                  }}
+                >
+                  {pendingCount > 99 ? "99+" : pendingCount}
+                </Text>
+              </View>
+            )}
+          </View>
         </View>
       </View>
 

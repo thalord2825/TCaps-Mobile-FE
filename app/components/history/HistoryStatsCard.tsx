@@ -1,6 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { Text, useColorScheme, View } from "react-native";
-import Colors from "../../../constants/Colors";
+import { Text, View } from "react-native";
 import { useTheme } from "../../context/theme-context";
 import type { HistoryBatchItem } from "../../data/sample-history-batches";
 import { SectionCard } from "../common/section-card";
@@ -10,10 +9,8 @@ export interface HistoryStatsCardProps {
 }
 
 export function HistoryStatsCard({ batches }: HistoryStatsCardProps) {
-  const { colors } = useTheme();
-  const scheme = useColorScheme();
-  const C = scheme === "dark" ? Colors.Dark : Colors.Light;
-  const isDark = scheme === "dark";
+  const { colors, theme } = useTheme();
+  const isDark = theme === "dark";
 
   // Handle empty data gracefully
   const hasData = batches && batches.length > 0;
@@ -108,7 +105,7 @@ export function HistoryStatsCard({ batches }: HistoryStatsCardProps) {
                 elevation: 6,
               }}
             >
-              <FontAwesome name="chart-bar" size={20} color="#FFFFFF" />
+              <FontAwesome name="bar-chart" size={20} color="#FFFFFF" />
             </View>
             <View>
               <Text
@@ -181,11 +178,11 @@ export function HistoryStatsCard({ batches }: HistoryStatsCardProps) {
                   key={index}
                   style={{
                     flex: 1,
-                    backgroundColor: isDark ? "#1f2937" : "#f8fafc",
+                    backgroundColor: colors.surfaceVariant,
                     borderRadius: 12,
                     padding: 16,
                     borderWidth: 1,
-                    borderColor: isDark ? "#374151" : "#e2e8f0",
+                    borderColor: colors.border,
                     shadowColor: isDark ? "#000" : "#000",
                     shadowOffset: { width: 0, height: 2 },
                     shadowOpacity: 0.1,
@@ -221,7 +218,7 @@ export function HistoryStatsCard({ batches }: HistoryStatsCardProps) {
                   </View>
                   <Text
                     style={{
-                      color: isDark ? "#fff" : colors.textHigh,
+                      color: colors.textHigh,
                       fontSize: 18,
                       fontWeight: "700",
                       marginBottom: 4,
@@ -246,11 +243,11 @@ export function HistoryStatsCard({ batches }: HistoryStatsCardProps) {
                   key={index}
                   style={{
                     flex: 1,
-                    backgroundColor: isDark ? "#1f2937" : "#f8fafc",
+                    backgroundColor: colors.surfaceVariant,
                     borderRadius: 12,
                     padding: 16,
                     borderWidth: 1,
-                    borderColor: isDark ? "#374151" : "#e2e8f0",
+                    borderColor: colors.border,
                     shadowColor: isDark ? "#000" : "#000",
                     shadowOffset: { width: 0, height: 2 },
                     shadowOpacity: 0.1,
@@ -286,7 +283,7 @@ export function HistoryStatsCard({ batches }: HistoryStatsCardProps) {
                   </View>
                   <Text
                     style={{
-                      color: isDark ? "#fff" : colors.textHigh,
+                      color: colors.textHigh,
                       fontSize: 18,
                       fontWeight: "700",
                       marginBottom: 4,
@@ -301,13 +298,13 @@ export function HistoryStatsCard({ batches }: HistoryStatsCardProps) {
         ) : (
           <View
             style={{
-              backgroundColor: isDark ? "#1f2937" : "#f8fafc",
+              backgroundColor: colors.surfaceVariant,
               borderRadius: 20,
               padding: 32,
               alignItems: "center",
               gap: 16,
               borderWidth: 1,
-              borderColor: isDark ? "#374151" : "#e2e8f0",
+              borderColor: colors.border,
               borderStyle: "dashed",
             }}
           >
@@ -316,12 +313,12 @@ export function HistoryStatsCard({ batches }: HistoryStatsCardProps) {
                 width: 64,
                 height: 64,
                 borderRadius: 32,
-                backgroundColor: isDark ? "#374151" : "#e2e8f0",
+                backgroundColor: colors.surface,
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <FontAwesome name="chart-line" size={28} color={colors.textMedium} />
+              <FontAwesome name="line-chart" size={28} color={colors.textMedium} />
             </View>
             <View style={{ alignItems: "center", gap: 8 }}>
               <Text

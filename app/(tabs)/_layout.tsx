@@ -2,10 +2,13 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import "../../app/globals.css";
 import { getAllowedTabs, getTabIcon, getTabTitle } from "../../config/route-rules";
+import { useTheme } from "../context/theme-context";
 import { useUser } from "../context/user-context";
 
 export default function TabsLayout() {
   const { role } = useUser();
+  const { colors, theme } = useTheme();
+  const isDark = theme === "dark";
   const allowedTabs = getAllowedTabs(role);
 
   // Debug logging to verify role-based tab filtering
@@ -15,7 +18,6 @@ export default function TabsLayout() {
     Admin: getAllowedTabs("Admin").length,
     Lead: getAllowedTabs("Lead").length,
     QC: getAllowedTabs("QC").length,
-    Courier: getAllowedTabs("Courier").length,
     Staff: getAllowedTabs("Staff").length,
   });
 
@@ -23,12 +25,15 @@ export default function TabsLayout() {
     <Tabs
       key={role}
       screenOptions={{
-        tabBarStyle: { backgroundColor: "#070A12", borderTopColor: "#0E0A16" },
-        tabBarActiveTintColor: "#a9dfd8",
-        tabBarInactiveTintColor: "#9CA3AF",
-        headerStyle: { backgroundColor: "#070A12" },
-        headerTintColor: "#FFFFFF",
-        sceneStyle: { backgroundColor: "#070A12" },
+        tabBarStyle: {
+          backgroundColor: colors.surface,
+          borderTopColor: isDark ? colors.border : colors.borderVariant,
+        },
+        tabBarActiveTintColor: isDark ? "#a9dfd8" : colors.accent,
+        tabBarInactiveTintColor: isDark ? "#9CA3AF" : colors.textMuted,
+        headerStyle: { backgroundColor: colors.background },
+        headerTintColor: colors.textHigh,
+        sceneStyle: { backgroundColor: colors.background },
       }}
     >
       <Tabs.Screen
@@ -97,10 +102,8 @@ export default function TabsLayout() {
         name="work-manage"
         options={{
           headerShown: false,
-          title: getTabTitle("workManage"),
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name={getTabIcon("workManage") as any} size={size} color={color} />
-          ),
+          title: "Quản lý công việc",
+          tabBarIcon: ({ color, size }) => <FontAwesome name="briefcase" size={size} color={color} />,
           href: allowedTabs.includes("workManage") ? "/work-manage" : null,
         }}
       />

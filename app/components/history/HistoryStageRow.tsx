@@ -2,7 +2,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Text, useColorScheme, View } from "react-native";
 import Colors from "../../../constants/Colors";
 import { useTheme } from "../../context/theme-context";
-import type { StageDetail } from "../../data/sample-history-batches";
+import type { StageDetail } from "../../data/sample-batches";
 
 export interface HistoryStageRowProps {
   stage: StageDetail;

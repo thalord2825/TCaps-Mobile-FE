@@ -1,5 +1,6 @@
-import { Stack } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { DynamicStack } from "./components/common/DynamicStack";
+import { DateRangeProvider } from "./context/date-range-context";
 import { ThemeProvider } from "./context/theme-context";
 import { UserProvider } from "./context/user-context";
 import "./globals.css";
@@ -8,11 +9,11 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <UserProvider>
-        <SafeAreaProvider>
-          <Stack screenOptions={{ contentStyle: { backgroundColor: "#070A12" } }}>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          </Stack>
-        </SafeAreaProvider>
+        <DateRangeProvider>
+          <SafeAreaProvider>
+            <DynamicStack />
+          </SafeAreaProvider>
+        </DateRangeProvider>
       </UserProvider>
     </ThemeProvider>
   );
