@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { useCallback, useState } from "react";
 import { Alert, FlatList, LayoutAnimation, Pressable, RefreshControl, Text, useColorScheme, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemeToggle } from "../components/common/theme-toggle";
 import { Toast } from "../components/common/Toast";
 import { ChangePasswordModal } from "../components/profile/ChangePasswordModal";
 import { ContractDetailsCard } from "../components/profile/ContractDetailsCard";
@@ -166,9 +167,12 @@ export default function Profile() {
         >
           Hồ sơ cá nhân
         </Text>
-        <Pressable>
-          <FontAwesome name="bell" size={20} color={isDark ? "#fff" : colors.textHigh} />
-        </Pressable>
+        <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
+          <ThemeToggle />
+          <Pressable>
+            <FontAwesome name="bell" size={20} color={isDark ? "#fff" : colors.textHigh} />
+          </Pressable>
+        </View>
       </View>
 
       <FlatList

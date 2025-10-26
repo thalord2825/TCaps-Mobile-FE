@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { useCallback } from "react";
 import { Pressable, Text, useColorScheme, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemeToggle } from "../components/common/theme-toggle";
 import { HistoryDashboard } from "../components/history/HistoryDashboard";
 import { useTheme } from "../context/theme-context";
 
@@ -44,9 +45,12 @@ export default function History() {
         >
           Lịch sử sản xuất
         </Text>
-        <Pressable>
-          <FontAwesome name="qrcode" size={20} color={isDark ? "#fff" : colors.textHigh} />
-        </Pressable>
+        <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
+          <ThemeToggle />
+          <Pressable>
+            <FontAwesome name="qrcode" size={20} color={isDark ? "#fff" : colors.textHigh} />
+          </Pressable>
+        </View>
       </View>
 
       {/* History Dashboard */}

@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { FlatList, Pressable, RefreshControl, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SectionCard } from "../components/common/section-card";
+import { ThemeToggle } from "../components/common/theme-toggle";
 import { useTheme } from "../context/theme-context";
 import { getUserStats, sampleUsers, User } from "../data/sample-users";
 
@@ -207,9 +208,12 @@ export default function Users() {
         >
           Quản lý người dùng
         </Text>
-        <Pressable>
-          <FontAwesome name="plus" size={20} color={isDark ? "#fff" : colors.textHigh} />
-        </Pressable>
+        <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
+          <ThemeToggle />
+          <Pressable>
+            <FontAwesome name="plus" size={20} color={isDark ? "#fff" : colors.textHigh} />
+          </Pressable>
+        </View>
       </View>
 
       <FlatList
