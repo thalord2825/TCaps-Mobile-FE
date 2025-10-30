@@ -1,0 +1,26 @@
+---
+alwaysApply: false
+---
+UI TO BUILD: $ARGUMENTS
+OBJECTIVE
+Launch 3 concurrent sub-agents in parallel to develop a single React Native UI concept with different approaches,
+Enabling users to compare mobile UI options and select the most effective solution for their React Native app.
+
+INSTRUCTIONS FOR EACH SUB-AGENT
+
+Review the styling specifications in app/design/design-system.json, along with reference mockups for guidance
+Construct a React Native component (.tsx file) featuring one interface screen that addresses the user requirements/brief
+Use NativeWind/Tailwind CSS classes for styling
+Include proper TypeScript interfaces and React Native component structure
+Implement mobile-optimized layouts, touch interactions, and responsive design
+Save React Native component files to app/components/variations/ using naming convention ui*variation*{n}.tsx (Where n must be distinct such as ui_variation_1.tsx, ui_variation_2.tsx, etc.)
+
+REQUIREMENTS
+
+Each component must be a complete, functional React Native component
+Use NativeWind classes for all styling (no inline styles)
+Include proper TypeScript interfaces for props and data
+Implement mobile-specific patterns (TouchableOpacity, Pressable, ScrollView, etc.)
+Consider safe areas and mobile navigation patterns
+Ensure components are reusable and follow React Native best practices
+Include proper imports for React Native components and NativeWind

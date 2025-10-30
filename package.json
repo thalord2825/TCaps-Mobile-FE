@@ -46,10 +46,13 @@
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/react": "~19.1.0",
     "babel-plugin-module-resolver": "^5.0.2",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.5",
     "typescript": "~5.9.2"
   },
   "private": true

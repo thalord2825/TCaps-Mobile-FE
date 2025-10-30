@@ -1,0 +1,222 @@
+---
+alwaysApply: true
+---
+
+# TCaps Mobile - Hat Production Management System
+
+## Ⅰ. Project Introduction
+
+**Project Overview:** Complete hat production process management from raw materials to finished products:
+
+- Track production progress at each workshop
+- Quality control (Lead, QC)
+- Cost and production statistics
+- Admin account management
+
+### 1.1 Project Background - Hat Production Process
+
+1. Purchase fabric + raw materials
+2. Laser cutting (if applicable)
+3. Fabric cutting with adhesive
+4. Fabric bonding
+5. Cut fabric into complete sets
+6. Printing + embroidery
+7. Make hat crown
+8. Make hat brim
+9. Attach snap buttons to tail (if applicable)
+10. Insert support rod + overlock stitching
+11. Insert hat + insert band
+12. Iron hat crown
+13. Sew zipper tail to hat (if applicable)
+14. Sew label
+15. Cut excess thread + insert label tag
+16. Iron hat
+17. Fold support rod + bag packaging
+
+## Ⅱ. Software Requirement Specification
+
+### 1. User Requirements
+
+| Actor     | Description                                                                                                                                                                                               |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Admin** | - Monitor complete production progress of hat manufacturing process, batch status, quantities, costs, workforce, productivity at each workshop                                                            |
+| **Staff** | - Execute production, input completed quantities, update product status                                                                                                                                   |
+| **QC**    | - Responsible for receiving goods + checking shortages (if any), requesting raw materials                                                                                                                 |
+| **Lead**  | - (Under Admin authority, above staff at each workshop) → Ensure smooth production process: from raw material WAREHOUSE INPUT → STAGE DISTRIBUTION → QC check all stages (from start to finished product) |
+
+### 2. Functional Requirements
+
+#### **Admin Functions:**
+
+**FR-01: Manage Batches**
+
+- **Description:** Admin can create, edit, or delete batches in the production process management system
+- **Actions:** Create new batches (enter PRODUCT ID, quantity, deadline), edit batch information (quantity, duration), delete unnecessary batches via management interface
+- **Results:** Batch list is updated, batch status (in production, completed) is displayed on dashboard
+
+**FR-02: Manage Product Codes**
+
+- **Description:** Admin manages list of product codes (add, edit, delete, UPLOAD IMAGES) to be used when creating new batches
+- **Actions:** Add new codes (e.g., N001 with description), edit information (name, details), delete unused codes via management tab
+- **Results:** Product code list is saved in Database, ready for batch creation
+
+**FR-03: Monitor Batch Quantity & Progress (Real-time)**
+
+- **Description:** Admin views statistics on total batches, batches in production, completed batches, and progress (percentage) in real-time via dashboard
+- **Actions:** Access dashboard, filter by day, week, or product code, view charts or automatically updated data tables
+- **Results:** Provides overview of production, supports timely decision-making
+
+**FR-04: Manage User Accounts**
+
+- **Description:** Admin creates, edits, and deactivates accounts for Staff and Lead, assigns roles via interface
+- **Actions:** Enter information (name, ID, role), save to Database, update access rights
+- **Results:** Staff list is managed, ensuring appropriate permissions
+
+**FR-05: Receive Notification when Batch is Completed**
+
+- **Description:** Admin receives notifications when a batch completes all 15 stages and final QC
+- **Actions:** Receive push notification with batch ID and completion time
+- **Results:** Admin is alerted to check and approve the batch (finished product)
+
+**FR-06: View Staff & Lead Information List**
+
+- **Description:** Admin views detailed information of all Staff, Lead (name, role, output, revenue) to manage performance
+- **Actions:** Access "Personnel" tab, filter by workshop or status, view data from Database
+- **Results:** Staff list is displayed, supporting performance evaluation, work allocation, and payroll
+
+**FR-07: Receive Notification when Inventory Changes**
+
+- **Description:** Admin receives notifications when there are changes in raw material inventory (add, reduce, or run out) managed by Lead
+- **Actions:** Receive push notification with change details (material type, quantity)
+- **Results:** Helps Admin adjust production plans promptly
+
+#### **Staff Functions:**
+
+**FR-08: View Personal Information**
+
+- **Description:** Staff views personal information such as name, earnings, contract, quality index
+- **Actions:** Access "Personal Profile" tab, view data from Database
+- **Results:** Personal information is displayed, supporting work and income management
+
+**FR-09: Enter Completed Production Quantity**
+
+- **Description:** Staff enters the quantity of products completed daily
+- **Actions:** Enter quantity, add notes (if needed), send data to Database
+- **Results:** Production quantity is saved, displayed on Staff dashboard, QC will review and evaluate
+
+**FR-10: View Personal Production & Revenue**
+
+- **Description:** Staff views total production quantity and accumulated revenue based on QC-approved products
+- **Actions:** Access "Production" tab, view data from Database (production quantity, actual revenue, projected revenue)
+- **Results:** Provides clear view of personal performance and income, motivating employees to work harder
+
+**FR-11: Receive Notification when Lead Requests Correction**
+
+- **Description:** Staff receives notifications when Lead detects an error and requests a batch correction
+- **Actions:** Receive push notification with batch ID and reason for error
+- **Results:** Staff is aware and performs corrections immediately
+
+**FR-12: Receive Notification when QC Approves Order**
+
+- **Description:** Staff receives notifications when Lead approves a batch
+- **Actions:** Receive push notification with batch ID and "QC approved" status
+- **Results:** Confirms progress, encourages Staff to continue working
+
+**FR-13: Receive Notification when Lead Assigns Batch for Processing**
+
+- **Description:** Staff receives notifications from Lead when a batch is transferred to their workshop for processing
+- **Actions:** Receive push notification with batch ID, quantity, and status
+- **Results:** Prepares for inspection of the newly received batch
+
+**FR-14: Create Material Request**
+
+- **Description:** Staff creates requests for additional raw materials (e.g., fabric, thread, glue...) when a shortage is detected in their workshop, ensuring uninterrupted production
+- **Actions:** Access "Request" tab, select material type to add (from available list), enter required quantity, add notes (if any, e.g., reason for shortage). Simultaneously, send notification to Lead
+- **Results:** Request is saved in system, Lead receives notification to process and update raw material inventory, ensuring smooth production
+
+#### **Lead Functions:**
+
+**FR-15: Manage Production Batches in Assigned Workshops**
+
+- **Description:** Lead monitors and manages assigned batches to ensure production progress, quality, and fair allocation. Lead views batch list (in progress, completed, or by time) to grasp the status of each batch
+- **Actions:** Access "Batch" tab, can filter by current batch, completed batch, filter by time
+- **Results:** Batch list is displayed, supporting work management
+
+**FR-16: Create Batch Correction Request**
+
+- **Description:** Lead creates a correction request when an error is detected in a batch, sending it back to Staff
+- **Actions:** Enter reason for error, upload image (from device)
+- **Results:** Request is saved, Staff receives notification to correct
+
+**FR-17: Monitor Correction Request List for Each Batch**
+
+- **Description:** Lead monitors submitted correction requests to check correction progress
+- **Actions:** View "Correction Request" tab, check status (in correction, completed)
+- **Results:** Updates correction status, supports management
+
+**FR-18: Quality Check**
+
+- **Description:** Lead re-checks batches after Staff corrections, decides Pass/Fail or cancels
+- **Actions:** View batch, tick Pass/Fail, upload image (if needed), update status in DB
+- **Results:** Batch is processed, forwarded or canceled, Staff is notified
+
+**FR-19: Confirm QC-Approved Batch for Next Workshop Transfer**
+
+- **Description:** Lead checks and confirms QC-approved batches for transfer to the next workshop in the 15-stage process
+- **Actions:** Select batch, confirm Pass quantity, send request
+- **Results:** Batch status changes, receiving workshop is notified
+
+**FR-20: Manage Raw Materials in Warehouse**
+
+- **Description:** Lead monitors and manages raw material quantity and cost (fabric, thread, glue...) in the warehouse to ensure production
+- **Actions:** Add/edit/delete raw materials, enter quantity, update data to Database
+- **Results:** Warehouse data is saved, Admin receives notification if raw materials are insufficient
+
+**FR-21: Allocate Production Stages to Workshops with Timeline & Required Quantity**
+
+- **Description:** Lead allocates 15 production stages to workshops, simultaneously notifying the quantity and deadline for product completion
+- **Actions:** Select stage (e.g., fabric cutting), assign workshop, save information to Database
+- **Results:** Stages are allocated, Staff receives notification to perform
+
+**FR-22: Approve Final Product for Market Release**
+
+- **Description:** Lead checks and approves the finished product before it is shipped or sold to the market
+- **Actions:** View completed batch, tick approve, upload image (if needed), update status
+- **Results:** Product is confirmed, status changes to "Completed," Admin is notified
+
+**FR-23: Monitor Batch Quantity & Progress (Real-time)**
+
+- **Description:** Lead views statistics on total batches, batches in production, completed batches, and progress (percentage) in real-time via dashboard
+- **Actions:** Access dashboard, filter by day, week, or product code, view charts or automatically updated data tables
+- **Results:** Provides general overview of production, supports timely decision-making
+
+**FR-24: Receive Notification for Material Request**
+
+- **Description:** Lead receives notifications when Staff in a workshop sends a request for additional raw materials (e.g., fabric, thread, glue...) due to shortages during production, ensuring timely material supply for the batch
+- **Actions:** Receive push notification with detailed information including batch ID, type of raw material needed, requested quantity, and notes (if any)
+- **Results:** Lead is aware of the request, can approve or adjust raw material inventory
+
+**FR-25: View Staff Information List**
+
+- **Description:** Lead views detailed information of all Staff (name, role, output, revenue) to manage performance
+- **Actions:** Access "Personnel" tab, filter by workshop or status, view data from Database
+- **Results:** Staff list is displayed, supporting performance evaluation, work allocation, and payroll
+
+**FR-26: View List of Existing Product Codes**
+
+- **Description:** Lead views the list of existing product codes to understand all current product codes => Used as a basis for planning production, allocating stages, and workshops
+- **Actions:** Access "Product Code" tab, view details (name, description) from Database
+- **Results:** Supports Lead in monitoring and adjusting production based on available codes
+
+## Ⅲ. Technical Implementation Notes
+
+### Mobile App Features:
+
+- **Real-time notifications** for all stakeholders
+- **Offline capability** for production data entry
+- **Image upload** for quality control documentation
+- **Dashboard analytics** with charts and progress tracking
+- **Role-based access control** (Admin, Lead, Staff)
+- **Multi-workshop coordination** with batch transfer system
+- **Inventory management** with low-stock alerts
+- **Performance tracking** and revenue calculation
