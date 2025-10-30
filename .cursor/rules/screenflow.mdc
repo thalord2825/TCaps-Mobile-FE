@@ -1,0 +1,233 @@
+---
+alwaysApply: true
+---
+
+# TCaps Mobile App - Screen Flow & Navigation Structure
+
+## 🏠 **ADMIN ROLE** (Full System Access)
+
+### Navigation: 4 Main Tabs
+
+**1. HOME TAB**
+
+- **Overview Dashboard**: Real-time production metrics, total batches, completion rates
+- **Critical Alerts**: Low inventory, delayed batches, quality issues
+- **Quick Actions**: Create new batch, emergency notifications
+- **Recent Activity**: Latest batch movements, staff updates, system events
+
+**2. BATCHES TAB**
+
+- **Batch Management**: Create, edit, delete production batches
+- **Product Codes**: Manage product catalog with images and specifications
+- **Batch Tracking**: Real-time progress across all 17 production stages
+- **Quality Reports**: Pass/fail rates, defect analysis, corrective actions
+
+**3. PERSONNEL TAB**
+
+- **Staff Management**: Create, edit, deactivate user accounts
+- **Role Assignment**: Assign Admin, Lead, QC, Staff roles
+- **Performance Analytics**: Individual and team productivity metrics
+- **Payroll Overview**: Revenue calculations, payment tracking
+
+**4. SYSTEM TAB**
+
+- **System Settings**: App configuration, notification preferences
+- **Reports & Analytics**: Detailed business intelligence dashboard
+- **Audit Logs**: System activity, user actions, data changes
+- **Backup & Maintenance**: Data management, system health
+
+---
+
+## 👨‍💼 **LEAD ROLE** (Multi-Factory Management)
+
+### Navigation: 5 Main Tabs
+
+**1. HOME TAB**
+
+- **Production Overview**: All current batches across assigned factories
+- **Factory Selector**: Choose specific factory (15-17 factories available)
+- **Batch Progress**: Visual progress bars for each production stage
+- **Staff Status**: Current staff assignments and availability
+- **Quick Actions Grid**:
+  - Staff Management
+  - Material Requests
+  - Quality Control
+  - Batch Transfers
+  - Inventory Management
+  - Production Reports
+
+**2. BATCHES TAB**
+
+- **Active Batches**: Currently in production with stage-by-stage progress
+- **Batch Details**: Select batch → View all factories working on it
+- **Factory Status**: Current finished/total quantities per factory
+- **Stage History**: Brief reports from previous factories
+- **Transfer Management**: Move batches between factories
+- **Quality Check**: Pass/Fail decisions with image documentation
+
+**3. INVENTORY TAB**
+
+- **Raw Materials**: Current stock levels, costs, suppliers
+- **Material Requests**: Staff requests for additional materials
+- **Stock Alerts**: Low inventory warnings, reorder suggestions
+- **Cost Tracking**: Material costs, budget analysis
+- **Supplier Management**: Contact info, delivery schedules
+
+**4. NOTIFICATIONS TAB**
+
+- **Material Requests**: Staff requests requiring approval
+- **Quality Issues**: Failed batches, correction requests
+- **Batch Updates**: Stage completions, transfers
+- **System Alerts**: Inventory warnings, deadline reminders
+- **Staff Messages**: Direct communication from staff
+
+**5. PROFILE TAB**
+
+- **Account Info**: Personal details, contact information
+- **Password Change**: Security settings
+- **Regulations & Policies**: Company rules and procedures
+- **FAQ**: Frequently asked questions
+- **Settings**: App preferences, notification settings
+- **Logout**: Secure session termination
+
+---
+
+## 🔍 **QC ROLE** (Single Factory Management)
+
+### Navigation: 4 Main Tabs
+
+**1. HOME TAB**
+
+- **Factory Dashboard**: Current batches for assigned factory only
+- **Product Code Filter**: View batches by specific product codes
+- **Quality Metrics**: Pass/fail rates, defect trends
+- **Staff Performance**: QC scores for factory staff
+- **Quick Actions**:
+  - Quality Inspections
+  - Batch Approvals
+  - Defect Reports
+  - Staff Feedback
+
+**2. INSPECTIONS TAB**
+
+- **Pending Inspections**: Batches awaiting QC review
+- **Inspection Forms**: Detailed quality check procedures
+- **Image Documentation**: Photo evidence for defects/approvals
+- **Pass/Fail Decisions**: Approve or reject with reasons
+- **Correction Requests**: Send batches back to staff with feedback
+
+**3. REPORTS TAB**
+
+- **Quality Reports**: Daily, weekly, monthly quality metrics
+- **Defect Analysis**: Common issues, improvement suggestions
+- **Staff Performance**: Individual QC scores and trends
+- **Factory Statistics**: Production efficiency, quality trends
+
+**4. PROFILE TAB**
+
+- **Account Info**: Personal details, factory assignment
+- **Password Change**: Security settings
+- **Regulations & Policies**: Quality standards and procedures
+- **FAQ**: Quality-related questions
+- **Settings**: App preferences, notification settings
+- **Logout**: Secure session termination
+
+---
+
+## 👷 **STAFF ROLE** (Single Factory Worker)
+
+### Navigation: 3 Main Tabs
+
+**1. HOME TAB**
+
+- **Today's Tasks**: Current batch assignments and quantities
+- **Production Form**: Submit completed quantities with notes
+- **Daily Earnings**: Real-time salary calculation
+- **Task History**: Previous day's work and earnings
+- **Quick Actions**:
+  - Submit Production
+  - Request Materials
+  - View Instructions
+  - Check Quality Feedback
+
+**2. NOTIFICATIONS TAB**
+
+- **Task Assignments**: New batch assignments from Lead
+- **Quality Feedback**: QC results, correction requests
+- **Material Updates**: Request approvals, stock notifications
+- **System Messages**: General announcements, policy updates
+- **Earnings Updates**: Payment confirmations, bonus notifications
+
+**3. PROFILE TAB**
+
+- **Personal Info**: Name, factory assignment, employee ID
+- **Earnings History**: Daily, weekly, monthly income tracking
+- **Performance Metrics**: Quality scores, productivity trends
+- **Contract Details**: Employment terms, benefits
+- **Settings**: App preferences, notification settings
+- **Help & Support**: Contact information, FAQ
+- **Logout**: Secure session termination
+
+---
+
+## 🔄 **CORE BUSINESS FLOW**
+
+### **Production Workflow:**
+
+1. **Admin** creates batch with product code, quantity, deadline
+2. **Lead** assigns batch to appropriate factories based on product requirements
+3. **Staff** receives notification, starts production, submits daily quantities
+4. **QC** inspects completed work, approves or requests corrections
+5. **Lead** transfers approved batches to next factory/stage
+6. **Admin** receives completion notifications, approves final products
+
+### **Material Management Flow:**
+
+1. **Staff** detects material shortage, creates request
+2. **Lead** receives notification, reviews and approves request
+3. **Lead** updates inventory, notifies staff of approval
+4. **Admin** receives inventory change notifications
+
+### **Quality Control Flow:**
+
+1. **Staff** completes work, submits for QC
+2. **QC** inspects with detailed forms and photo documentation
+3. **QC** makes Pass/Fail decision with feedback
+4. **Lead** reviews QC results, manages corrections if needed
+5. **Admin** monitors overall quality metrics
+
+---
+
+## 📱 **UX ENHANCEMENTS**
+
+### **Navigation Patterns:**
+
+- **Bottom Tab Navigation**: Consistent across all roles
+- **Breadcrumb Navigation**: For deep hierarchical content
+- **Floating Action Buttons**: Quick access to primary actions
+- **Pull-to-Refresh**: Real-time data updates
+- **Swipe Gestures**: Navigate between related screens
+
+### **Visual Hierarchy:**
+
+- **Status Indicators**: Color-coded batch statuses (In Progress, QC Pending, Completed)
+- **Progress Bars**: Visual representation of production stages
+- **Badge Notifications**: Unread message counts
+- **Card-Based Layout**: Organized information display
+- **Empty States**: Helpful guidance when no data available
+
+### **Accessibility Features:**
+
+- **Large Touch Targets**: Minimum 44px for all interactive elements
+- **High Contrast**: Black/white theme for readability
+- **Voice Over Support**: Screen reader compatibility
+- **Offline Capability**: Work without internet connection
+- **Multi-language Support**: Vietnamese and English
+
+### **Performance Optimizations:**
+
+- **Lazy Loading**: Load content as needed
+- **Image Optimization**: Compressed photos for QC documentation
+- **Caching**: Offline data storage for critical information
+- **Real-time Updates**: Push notifications for urgent matters
+- **Background Sync**: Upload data when connection restored

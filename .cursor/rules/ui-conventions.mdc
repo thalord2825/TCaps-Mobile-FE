@@ -1,0 +1,1157 @@
+---
+alwaysApply: false
+---
+# UI Conventions & Design System
+
+## Overview
+
+This document outlines the UI conventions and design system used in the TCaps Mobile Frontend. The project follows a modern, accessible, and consistent design approach using React Native, TypeScript, Expo, and NativeWind styling.
+
+## Technology Stack
+
+- **Framework**: React Native with Expo
+- **Language**: TypeScript with strict mode
+- **Styling**: NativeWind (Tailwind CSS for React Native)
+- **Navigation**: Expo Router
+- **Icons**: Expo Vector Icons (FontAwesome)
+- **Animations**: React Native Reanimated
+- **State Management**: React Context + useReducer
+- **Forms**: React Hook Form + Zod validation
+
+## Design Principles
+
+### 1. Accessibility First
+
+- All interactive elements must have proper accessibility labels
+- Focus management for keyboard navigation
+- Color contrast compliance (WCAG 2.1 AA)
+- Screen reader friendly markup
+- Minimum 44px touch targets
+
+### 2. Mobile-First Design
+
+- Design for mobile devices first and foremost
+- Touch-friendly interface elements
+- Gesture support for common actions
+- Safe area management for notches and status bars
+
+### 3. Consistent Visual Hierarchy
+
+- Clear typography scale and spacing
+- Consistent color usage across components
+- Proper use of shadows and elevation
+- Dark mode optimized design
+
+## Color System
+
+### Primary Colors
+
+```css
+/* Dark Blue Theme */
+--background: #070a12 /* Main screen background */ --surface: #0e0a16 /* Section containers */
+  --surface-variant: #0b0f18 /* Inner cards/items */ --accent: #7aa2ff /* Primary actions, highlights */;
+```
+
+### Text Colors
+
+```css
+/* Text Hierarchy */
+--text-high: #ffffff /* Primary headings */ --text-medium: #e5e7eb /* Body text */ --text-low: #b6b8c3
+  /* Secondary text */ --text-muted: #a3b1d1 /* Tertiary text */;
+```
+
+### Border & Shadow
+
+```css
+/* Visual Separation */
+--border: #152033 /* Section separation */ --border-variant: #182235 /* Item separation */ --shadow: #000000
+  /* Shadow color */;
+```
+
+### Semantic Colors
+
+```css
+--success: #10b981 /* Green for success states */ --warning: #f59e0b /* Amber for warnings */ --error: #ef4444
+  /* Red for errors */ --info: #3b82f6 /* Blue for information */;
+```
+
+## Typography Scale
+
+### Font Sizes
+
+```tsx
+// Headings
+fontSize: 24, fontWeight: "800"  // Hero titles
+fontSize: 20, fontWeight: "700"  // Section titles
+fontSize: 16, fontWeight: "700"  // Card titles
+
+// Body Text
+fontSize: 14, fontWeight: "400"  // Default body text
+fontSize: 12, fontWeight: "400"   // Small text
+fontSize: 10, fontWeight: "700" // Badges, counts
+```
+
+### Font Weights
+
+- `fontWeight: "800"` - Hero titles, important elements
+- `fontWeight: "700"` - Section titles, card titles
+- `fontWeight: "400"` - Body text, labels
+
+## Spacing System
+
+### Consistent Spacing Scale
+
+```tsx
+// Padding/Margin Scale
+padding: 4; // 4px - Tight spacing
+padding: 8; // 8px - Small spacing
+padding: 12; // 12px - Medium spacing
+padding: 16; // 16px - Standard spacing
+padding: 20; // 20px - Large spacing
+padding: 24; // 24px - Extra large spacing
+```
+
+### Layout Spacing
+
+- **Screen padding**: `paddingHorizontal: 16, paddingTop: 24`
+- **Section padding**: `padding: 16`
+- **Item padding**: `padding: 14`
+- **Gap between sections**: `gap: 12`
+- **Gap between items**: `gap: 10-12`
+
+## Component Architecture
+
+### 1. Component Organization
+
+```
+app/components/
+├── common/           # Reusable components
+│   ├── section-card.tsx
+│   └── button.tsx
+├── home/            # Home-specific components
+│   ├── welcome-card.tsx
+│   └── welcome-section.tsx
+├── batches/         # Batch-related components
+│   ├── batch-card.tsx
+│   └── batch-list.tsx
+└── features/        # Feature components
+    ├── feature-item.tsx
+    └── features-grid.tsx
+```
+
+### 2. Component Naming Conventions
+
+- **PascalCase** for component names: `WelcomeCard.tsx`
+- **Descriptive names**: `BatchCard.tsx`, `FeatureItem.tsx`
+- **Consistent suffixes**: `Card`, `List`, `Section`, `Item`
+
+### 3. Component Structure
+
+```tsx
+// Standard component structure
+import React from "react";
+import { View, Text, Pressable } from "react-native";
+
+interface ComponentProps {
+  // Props with proper TypeScript types
+}
+
+export function ComponentName({ prop1, prop2 }: ComponentProps) {
+  // Hooks and state
+  // Event handlers
+  // Render
+}
+
+export default ComponentName;
+```
+
+## Layout Patterns
+
+### 1. Screen Layout Structure
+
+```tsx
+<SafeAreaView style={{ flex: 1, backgroundColor: "#070A12" }}>
+  <StatusBar style="light" />
+  <ScrollView style={{ backgroundColor: "#070A12" }}>{/* Screen content */}</ScrollView>
+</SafeAreaView>
+```
+
+### 2. Container Patterns
+
+```tsx
+// SectionCard container
+<View style={{
+  backgroundColor: "#0E0A16",
+  borderRadius: 16,
+  padding: 16,
+  gap: 12,
+  borderWidth: 1,
+  borderColor: "#152033",
+  shadowColor: "#000",
+  shadowOpacity: 0.25,
+  shadowRadius: 12,
+  elevation: 4,
+}}>
+
+// Item card container
+<View style={{
+  backgroundColor: "#0B0F18",
+  borderRadius: 14,
+  padding: 14,
+  gap: 12,
+  borderWidth: 1,
+  borderColor: "#182235",
+}}>
+```
+
+### 3. Grid Layouts
+
+```tsx
+// Feature grid (3 columns)
+<View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
+  <View style={{ alignItems: "center", width: "33%", marginBottom: 16 }}>{/* Feature item */}</View>
+</View>
+```
+
+## Component Patterns
+
+### 1. Cards
+
+```tsx
+<View
+  style={{
+    backgroundColor: "#0B0F18",
+    borderRadius: 14,
+    padding: 14,
+    gap: 12,
+    borderWidth: 1,
+    borderColor: "#182235",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 3,
+  }}
+>
+  {/* Card content */}
+</View>
+```
+
+### 2. Buttons
+
+```tsx
+// Primary button
+<Pressable
+  style={{
+    backgroundColor: "#1D2A3A",
+    borderWidth: 1,
+    borderColor: "#2A3340",
+    paddingVertical: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <Text style={{ color: "#7aa2ff", fontWeight: "800" }}>Button Text</Text>
+</Pressable>
+
+// Secondary button
+<Pressable
+  style={{
+    borderWidth: 1,
+    borderColor: "#2A3340",
+    paddingVertical: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <Text style={{ color: "#E5E7EB", fontWeight: "700" }}>Button Text</Text>
+</Pressable>
+```
+
+### 3. Progress Bars
+
+```tsx
+<View style={{ height: 8, borderRadius: 999, backgroundColor: "#151E2A", overflow: "hidden" }}>
+  <View style={{ width: `${progress * 100}%`, height: "100%", backgroundColor: "#7aa2ff" }} />
+</View>
+```
+
+### 4. Accent Pills/Tags
+
+```tsx
+<View
+  style={{
+    backgroundColor: "#7aa2ff",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+  }}
+>
+  <Text style={{ color: "#0b1020", fontWeight: "800" }}>Tag Text</Text>
+</View>
+```
+
+## Animation Guidelines
+
+### 1. React Native Reanimated Usage
+
+```tsx
+// Fade in animation
+const fadeIn = useSharedValue(0);
+const fadeInStyle = useAnimatedStyle(() => ({
+  opacity: fadeIn.value,
+}));
+
+// Scale animation
+const scale = useSharedValue(1);
+const scaleStyle = useAnimatedStyle(() => ({
+  transform: [{ scale: scale.value }],
+}));
+```
+
+### 2. Animation Principles
+
+- **Subtle and purposeful**: Animations should enhance UX, not distract
+- **Consistent timing**: Use standard durations (300ms, 500ms, 600ms)
+- **Smooth transitions**: Use easing functions for natural movement
+- **Performance**: Use native driver when possible
+
+## Safe Area Management
+
+### 1. SafeAreaView Usage
+
+```tsx
+import { SafeAreaView } from "react-native-safe-area-context";
+
+<SafeAreaView style={{ flex: 1, backgroundColor: "#070A12" }}>{/* Screen content */}</SafeAreaView>;
+```
+
+### 2. SafeAreaProvider Setup
+
+```tsx
+// In root layout
+<SafeAreaProvider>
+  <Stack>{/* Navigation screens */}</Stack>
+</SafeAreaProvider>
+```
+
+## Navigation Patterns
+
+### 1. Tab Navigation
+
+```tsx
+<Tabs
+  screenOptions={{
+    tabBarStyle: { backgroundColor: "#070A12", borderTopColor: "#0E0A16" },
+    tabBarActiveTintColor: "#7aa2ff",
+    tabBarInactiveTintColor: "#9CA3AF",
+    headerStyle: { backgroundColor: "#070A12" },
+    headerTintColor: "#FFFFFF",
+  }}
+>
+```
+
+### 2. Navigation States
+
+- **Active state**: `color: "#7aa2ff"`
+- **Inactive state**: `color: "#9CA3AF"`
+- **Background**: `backgroundColor: "#070A12"`
+
+## Form Design Patterns
+
+### 1. Form Structure
+
+- Use React Hook Form with Zod validation
+- Consistent error handling and display
+- Proper accessibility attributes
+- Loading states for submissions
+
+### 2. Input Styling
+
+```tsx
+<TextInput
+  style={{
+    borderWidth: 1,
+    borderColor: "#2A3340",
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    color: "#FFFFFF",
+    backgroundColor: "#0B0F18",
+  }}
+  placeholderTextColor="#9CA3AF"
+/>
+```
+
+## Icon Usage
+
+### 1. Icon Libraries
+
+- **Expo Vector Icons**: Primary icon library
+- **FontAwesome**: Standard icon set
+- **Material Icons**: Alternative icon set
+
+### 2. Icon Sizing
+
+```tsx
+// Standard sizes
+<FontAwesome name="icon-name" size={14} color="#C8CAD6" />  // Small icons
+<FontAwesome name="icon-name" size={18} color="#7aa2ff" />  // Default icons
+<FontAwesome name="icon-name" size={22} color="#FFFFFF" />  // Large icons
+```
+
+## Accessibility Guidelines
+
+### 1. Accessibility Labels
+
+```tsx
+<Pressable
+  accessibilityRole="button"
+  accessibilityLabel="Descriptive label"
+  hitSlop={10}
+>
+```
+
+### 2. Focus Management
+
+```tsx
+// Proper focus handling
+<Pressable
+  onPress={handlePress}
+  accessibilityRole="button"
+  accessibilityLabel="Action description"
+  hitSlop={10}
+>
+```
+
+### 3. Color and Contrast
+
+- Ensure sufficient color contrast (4.5:1 for normal text)
+- Don't rely solely on color to convey information
+- Provide alternative indicators for color-coded information
+
+## Performance Guidelines
+
+### 1. FlatList Usage
+
+```tsx
+<FlatList
+  data={data}
+  keyExtractor={(item) => item.id}
+  ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+  renderItem={({ item }) => <ItemComponent item={item} />}
+  ListHeaderComponent={<HeaderComponent />}
+  ListFooterComponent={<FooterComponent />}
+/>
+```
+
+### 2. Image Optimization
+
+```tsx
+import { Image } from "expo-image";
+
+<Image source={{ uri: imageUrl }} style={{ width: "100%", height: "100%" }} contentFit="cover" />;
+```
+
+## Code Quality Standards
+
+### 1. TypeScript Usage
+
+- Strict typing for all props and state
+- Proper interface definitions
+- Use of utility types when appropriate
+
+### 2. Component Props
+
+```tsx
+interface ComponentProps {
+  required: string;
+  optional?: number;
+  callback: (value: string) => void;
+}
+```
+
+### 3. Error Handling
+
+- Proper error boundaries
+- User-friendly error messages
+- Fallback UI for failed states
+
+## Testing Considerations
+
+### 1. Component Testing
+
+- Test accessibility features
+- Verify responsive behavior
+- Test animation states
+- Validate form interactions
+
+### 2. Visual Regression
+
+- Maintain consistent visual appearance
+- Test across different screen sizes
+- Verify color and contrast compliance
+
+## Maintenance Guidelines
+
+### 1. Component Updates
+
+- Maintain backward compatibility
+- Update documentation when changing APIs
+- Follow semantic versioning for breaking changes
+
+### 2. Design System Evolution
+
+- Document all design decisions
+- Maintain consistency across updates
+- Regular review of component usage patterns
+
+---
+
+## Quick Reference
+
+### Common Style Combinations
+
+```tsx
+// SectionCard
+{
+  backgroundColor: "#0E0A16",
+  borderRadius: 16,
+  padding: 16,
+  gap: 12,
+  borderWidth: 1,
+  borderColor: "#152033",
+  shadowColor: "#000",
+  shadowOpacity: 0.25,
+  shadowRadius: 12,
+  elevation: 4,
+}
+
+// Item Card
+{
+  backgroundColor: "#0B0F18",
+  borderRadius: 14,
+  padding: 14,
+  gap: 12,
+  borderWidth: 1,
+  borderColor: "#182235",
+}
+
+// Primary Button
+{
+  backgroundColor: "#1D2A3A",
+  borderWidth: 1,
+  borderColor: "#2A3340",
+  paddingVertical: 10,
+  borderRadius: 10,
+}
+
+// Accent Pill
+{
+  backgroundColor: "#7aa2ff",
+  paddingHorizontal: 10,
+  paddingVertical: 6,
+  borderRadius: 999,
+}
+```
+
+### Color Tokens
+
+```tsx
+// Backgrounds
+const BACKGROUND = "#070A12";
+const SURFACE = "#0E0A16";
+const SURFACE_VARIANT = "#0B0F18";
+
+// Text
+const TEXT_HIGH = "#FFFFFF";
+const TEXT_MEDIUM = "#E5E7EB";
+const TEXT_LOW = "#B6B8C3";
+
+// Accent
+const ACCENT = "#7aa2ff";
+
+// Borders
+const BORDER = "#152033";
+const BORDER_VARIANT = "#182235";
+```
+
+This convention document should be updated as the design system evolves and new patterns emerge.
+# UI Conventions & Design System
+
+## Overview
+
+This document outlines the UI conventions and design system used in the TCaps Mobile Frontend. The project follows a modern, accessible, and consistent design approach using React Native, TypeScript, Expo, and NativeWind styling.
+
+## Technology Stack
+
+- **Framework**: React Native with Expo
+- **Language**: TypeScript with strict mode
+- **Styling**: NativeWind (Tailwind CSS for React Native)
+- **Navigation**: Expo Router
+- **Icons**: Expo Vector Icons (FontAwesome)
+- **Animations**: React Native Reanimated
+- **State Management**: React Context + useReducer
+- **Forms**: React Hook Form + Zod validation
+
+## Design Principles
+
+### 1. Accessibility First
+
+- All interactive elements must have proper accessibility labels
+- Focus management for keyboard navigation
+- Color contrast compliance (WCAG 2.1 AA)
+- Screen reader friendly markup
+- Minimum 44px touch targets
+
+### 2. Mobile-First Design
+
+- Design for mobile devices first and foremost
+- Touch-friendly interface elements
+- Gesture support for common actions
+- Safe area management for notches and status bars
+
+### 3. Consistent Visual Hierarchy
+
+- Clear typography scale and spacing
+- Consistent color usage across components
+- Proper use of shadows and elevation
+- Dark mode optimized design
+
+## Color System
+
+### Primary Colors
+
+```css
+/* Dark Blue Theme */
+--background: #070a12 /* Main screen background */ --surface: #0e0a16 /* Section containers */
+  --surface-variant: #0b0f18 /* Inner cards/items */ --accent: #7aa2ff /* Primary actions, highlights */;
+```
+
+### Text Colors
+
+```css
+/* Text Hierarchy */
+--text-high: #ffffff /* Primary headings */ --text-medium: #e5e7eb /* Body text */ --text-low: #b6b8c3
+  /* Secondary text */ --text-muted: #a3b1d1 /* Tertiary text */;
+```
+
+### Border & Shadow
+
+```css
+/* Visual Separation */
+--border: #152033 /* Section separation */ --border-variant: #182235 /* Item separation */ --shadow: #000000
+  /* Shadow color */;
+```
+
+### Semantic Colors
+
+```css
+--success: #10b981 /* Green for success states */ --warning: #f59e0b /* Amber for warnings */ --error: #ef4444
+  /* Red for errors */ --info: #3b82f6 /* Blue for information */;
+```
+
+## Typography Scale
+
+### Font Sizes
+
+```tsx
+// Headings
+fontSize: 24, fontWeight: "800"  // Hero titles
+fontSize: 20, fontWeight: "700"  // Section titles
+fontSize: 16, fontWeight: "700"  // Card titles
+
+// Body Text
+fontSize: 14, fontWeight: "400"  // Default body text
+fontSize: 12, fontWeight: "400"   // Small text
+fontSize: 10, fontWeight: "700" // Badges, counts
+```
+
+### Font Weights
+
+- `fontWeight: "800"` - Hero titles, important elements
+- `fontWeight: "700"` - Section titles, card titles
+- `fontWeight: "400"` - Body text, labels
+
+## Spacing System
+
+### Consistent Spacing Scale
+
+```tsx
+// Padding/Margin Scale
+padding: 4; // 4px - Tight spacing
+padding: 8; // 8px - Small spacing
+padding: 12; // 12px - Medium spacing
+padding: 16; // 16px - Standard spacing
+padding: 20; // 20px - Large spacing
+padding: 24; // 24px - Extra large spacing
+```
+
+### Layout Spacing
+
+- **Screen padding**: `paddingHorizontal: 16, paddingTop: 24`
+- **Section padding**: `padding: 16`
+- **Item padding**: `padding: 14`
+- **Gap between sections**: `gap: 12`
+- **Gap between items**: `gap: 10-12`
+
+## Component Architecture
+
+### 1. Component Organization
+
+```
+app/components/
+├── common/           # Reusable components
+│   ├── section-card.tsx
+│   └── button.tsx
+├── home/            # Home-specific components
+│   ├── welcome-card.tsx
+│   └── welcome-section.tsx
+├── batches/         # Batch-related components
+│   ├── batch-card.tsx
+│   └── batch-list.tsx
+└── features/        # Feature components
+    ├── feature-item.tsx
+    └── features-grid.tsx
+```
+
+### 2. Component Naming Conventions
+
+- **PascalCase** for component names: `WelcomeCard.tsx`
+- **Descriptive names**: `BatchCard.tsx`, `FeatureItem.tsx`
+- **Consistent suffixes**: `Card`, `List`, `Section`, `Item`
+
+### 3. Component Structure
+
+```tsx
+// Standard component structure
+import React from "react";
+import { View, Text, Pressable } from "react-native";
+
+interface ComponentProps {
+  // Props with proper TypeScript types
+}
+
+export function ComponentName({ prop1, prop2 }: ComponentProps) {
+  // Hooks and state
+  // Event handlers
+  // Render
+}
+
+export default ComponentName;
+```
+
+## Layout Patterns
+
+### 1. Screen Layout Structure
+
+```tsx
+<SafeAreaView style={{ flex: 1, backgroundColor: "#070A12" }}>
+  <StatusBar style="light" />
+  <ScrollView style={{ backgroundColor: "#070A12" }}>{/* Screen content */}</ScrollView>
+</SafeAreaView>
+```
+
+### 2. Container Patterns
+
+```tsx
+// SectionCard container
+<View style={{
+  backgroundColor: "#0E0A16",
+  borderRadius: 16,
+  padding: 16,
+  gap: 12,
+  borderWidth: 1,
+  borderColor: "#152033",
+  shadowColor: "#000",
+  shadowOpacity: 0.25,
+  shadowRadius: 12,
+  elevation: 4,
+}}>
+
+// Item card container
+<View style={{
+  backgroundColor: "#0B0F18",
+  borderRadius: 14,
+  padding: 14,
+  gap: 12,
+  borderWidth: 1,
+  borderColor: "#182235",
+}}>
+```
+
+### 3. Grid Layouts
+
+```tsx
+// Feature grid (3 columns)
+<View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between" }}>
+  <View style={{ alignItems: "center", width: "33%", marginBottom: 16 }}>{/* Feature item */}</View>
+</View>
+```
+
+## Component Patterns
+
+### 1. Cards
+
+```tsx
+<View
+  style={{
+    backgroundColor: "#0B0F18",
+    borderRadius: 14,
+    padding: 14,
+    gap: 12,
+    borderWidth: 1,
+    borderColor: "#182235",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 3,
+  }}
+>
+  {/* Card content */}
+</View>
+```
+
+### 2. Buttons
+
+```tsx
+// Primary button
+<Pressable
+  style={{
+    backgroundColor: "#1D2A3A",
+    borderWidth: 1,
+    borderColor: "#2A3340",
+    paddingVertical: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <Text style={{ color: "#7aa2ff", fontWeight: "800" }}>Button Text</Text>
+</Pressable>
+
+// Secondary button
+<Pressable
+  style={{
+    borderWidth: 1,
+    borderColor: "#2A3340",
+    paddingVertical: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  <Text style={{ color: "#E5E7EB", fontWeight: "700" }}>Button Text</Text>
+</Pressable>
+```
+
+### 3. Progress Bars
+
+```tsx
+<View style={{ height: 8, borderRadius: 999, backgroundColor: "#151E2A", overflow: "hidden" }}>
+  <View style={{ width: `${progress * 100}%`, height: "100%", backgroundColor: "#7aa2ff" }} />
+</View>
+```
+
+### 4. Accent Pills/Tags
+
+```tsx
+<View
+  style={{
+    backgroundColor: "#7aa2ff",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+  }}
+>
+  <Text style={{ color: "#0b1020", fontWeight: "800" }}>Tag Text</Text>
+</View>
+```
+
+## Animation Guidelines
+
+### 1. React Native Reanimated Usage
+
+```tsx
+// Fade in animation
+const fadeIn = useSharedValue(0);
+const fadeInStyle = useAnimatedStyle(() => ({
+  opacity: fadeIn.value,
+}));
+
+// Scale animation
+const scale = useSharedValue(1);
+const scaleStyle = useAnimatedStyle(() => ({
+  transform: [{ scale: scale.value }],
+}));
+```
+
+### 2. Animation Principles
+
+- **Subtle and purposeful**: Animations should enhance UX, not distract
+- **Consistent timing**: Use standard durations (300ms, 500ms, 600ms)
+- **Smooth transitions**: Use easing functions for natural movement
+- **Performance**: Use native driver when possible
+
+## Safe Area Management
+
+### 1. SafeAreaView Usage
+
+```tsx
+import { SafeAreaView } from "react-native-safe-area-context";
+
+<SafeAreaView style={{ flex: 1, backgroundColor: "#070A12" }}>{/* Screen content */}</SafeAreaView>;
+```
+
+### 2. SafeAreaProvider Setup
+
+```tsx
+// In root layout
+<SafeAreaProvider>
+  <Stack>{/* Navigation screens */}</Stack>
+</SafeAreaProvider>
+```
+
+## Navigation Patterns
+
+### 1. Tab Navigation
+
+```tsx
+<Tabs
+  screenOptions={{
+    tabBarStyle: { backgroundColor: "#070A12", borderTopColor: "#0E0A16" },
+    tabBarActiveTintColor: "#7aa2ff",
+    tabBarInactiveTintColor: "#9CA3AF",
+    headerStyle: { backgroundColor: "#070A12" },
+    headerTintColor: "#FFFFFF",
+  }}
+>
+```
+
+### 2. Navigation States
+
+- **Active state**: `color: "#7aa2ff"`
+- **Inactive state**: `color: "#9CA3AF"`
+- **Background**: `backgroundColor: "#070A12"`
+
+## Form Design Patterns
+
+### 1. Form Structure
+
+- Use React Hook Form with Zod validation
+- Consistent error handling and display
+- Proper accessibility attributes
+- Loading states for submissions
+
+### 2. Input Styling
+
+```tsx
+<TextInput
+  style={{
+    borderWidth: 1,
+    borderColor: "#2A3340",
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    color: "#FFFFFF",
+    backgroundColor: "#0B0F18",
+  }}
+  placeholderTextColor="#9CA3AF"
+/>
+```
+
+## Icon Usage
+
+### 1. Icon Libraries
+
+- **Expo Vector Icons**: Primary icon library
+- **FontAwesome**: Standard icon set
+- **Material Icons**: Alternative icon set
+
+### 2. Icon Sizing
+
+```tsx
+// Standard sizes
+<FontAwesome name="icon-name" size={14} color="#C8CAD6" />  // Small icons
+<FontAwesome name="icon-name" size={18} color="#7aa2ff" />  // Default icons
+<FontAwesome name="icon-name" size={22} color="#FFFFFF" />  // Large icons
+```
+
+## Accessibility Guidelines
+
+### 1. Accessibility Labels
+
+```tsx
+<Pressable
+  accessibilityRole="button"
+  accessibilityLabel="Descriptive label"
+  hitSlop={10}
+>
+```
+
+### 2. Focus Management
+
+```tsx
+// Proper focus handling
+<Pressable
+  onPress={handlePress}
+  accessibilityRole="button"
+  accessibilityLabel="Action description"
+  hitSlop={10}
+>
+```
+
+### 3. Color and Contrast
+
+- Ensure sufficient color contrast (4.5:1 for normal text)
+- Don't rely solely on color to convey information
+- Provide alternative indicators for color-coded information
+
+## Performance Guidelines
+
+### 1. FlatList Usage
+
+```tsx
+<FlatList
+  data={data}
+  keyExtractor={(item) => item.id}
+  ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+  renderItem={({ item }) => <ItemComponent item={item} />}
+  ListHeaderComponent={<HeaderComponent />}
+  ListFooterComponent={<FooterComponent />}
+/>
+```
+
+### 2. Image Optimization
+
+```tsx
+import { Image } from "expo-image";
+
+<Image source={{ uri: imageUrl }} style={{ width: "100%", height: "100%" }} contentFit="cover" />;
+```
+
+## Code Quality Standards
+
+### 1. TypeScript Usage
+
+- Strict typing for all props and state
+- Proper interface definitions
+- Use of utility types when appropriate
+
+### 2. Component Props
+
+```tsx
+interface ComponentProps {
+  required: string;
+  optional?: number;
+  callback: (value: string) => void;
+}
+```
+
+### 3. Error Handling
+
+- Proper error boundaries
+- User-friendly error messages
+- Fallback UI for failed states
+
+## Testing Considerations
+
+### 1. Component Testing
+
+- Test accessibility features
+- Verify responsive behavior
+- Test animation states
+- Validate form interactions
+
+### 2. Visual Regression
+
+- Maintain consistent visual appearance
+- Test across different screen sizes
+- Verify color and contrast compliance
+
+## Maintenance Guidelines
+
+### 1. Component Updates
+
+- Maintain backward compatibility
+- Update documentation when changing APIs
+- Follow semantic versioning for breaking changes
+
+### 2. Design System Evolution
+
+- Document all design decisions
+- Maintain consistency across updates
+- Regular review of component usage patterns
+
+---
+
+## Quick Reference
+
+### Common Style Combinations
+
+```tsx
+// SectionCard
+{
+  backgroundColor: "#0E0A16",
+  borderRadius: 16,
+  padding: 16,
+  gap: 12,
+  borderWidth: 1,
+  borderColor: "#152033",
+  shadowColor: "#000",
+  shadowOpacity: 0.25,
+  shadowRadius: 12,
+  elevation: 4,
+}
+
+// Item Card
+{
+  backgroundColor: "#0B0F18",
+  borderRadius: 14,
+  padding: 14,
+  gap: 12,
+  borderWidth: 1,
+  borderColor: "#182235",
+}
+
+// Primary Button
+{
+  backgroundColor: "#1D2A3A",
+  borderWidth: 1,
+  borderColor: "#2A3340",
+  paddingVertical: 10,
+  borderRadius: 10,
+}
+
+// Accent Pill
+{
+  backgroundColor: "#7aa2ff",
+  paddingHorizontal: 10,
+  paddingVertical: 6,
+  borderRadius: 999,
+}
+```
+
+### Color Tokens
+
+```tsx
+// Backgrounds
+const BACKGROUND = "#070A12";
+const SURFACE = "#0E0A16";
+const SURFACE_VARIANT = "#0B0F18";
+
+// Text
+const TEXT_HIGH = "#FFFFFF";
+const TEXT_MEDIUM = "#E5E7EB";
+const TEXT_LOW = "#B6B8C3";
+
+// Accent
+const ACCENT = "#7aa2ff";
+
+// Borders
+const BORDER = "#152033";
+const BORDER_VARIANT = "#182235";
+```
+
+This convention document should be updated as the design system evolves and new patterns emerge.

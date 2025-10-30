@@ -1,0 +1,248 @@
+# TCaps Mobile Design System
+
+## Color Palette
+
+### Primary Colors
+
+- **Background**: `#070A12` (main screen background)
+- **Surface**: `#0E0A16` (section containers)
+- **Surface Variant**: `#0B0F18` (inner cards/items)
+- **Accent**: `#7aa2ff` (primary actions, highlights, progress)
+
+### Text Colors
+
+- **High**: `#FFFFFF` (primary headings)
+- **Medium**: `#E5E7EB` (body text)
+- **Low**: `#B6B8C3` (secondary text)
+- **Muted**: `#A3B1D1` (tertiary text)
+
+### Border & Shadow
+
+- **Border**: `#152033` (section separation)
+- **Border Variant**: `#182235` (item separation)
+- **Shadow**: `#000000` with 0.25-0.35 opacity
+
+## Component Architecture
+
+### Container Hierarchy
+
+1. **Screen Background**: `#070A12`
+2. **SectionCard**: `#0E0A16` with border/shadow
+3. **Item Cards**: `#0B0F18` with distinct borders
+4. **Inner Elements**: Various surface variants
+
+### SectionCard (Base Container)
+
+```tsx
+<View style={{
+  backgroundColor: "#0E0A16",
+  borderRadius: 16,
+  padding: 16,
+  gap: 12,
+  borderWidth: 1,
+  borderColor: "#152033",
+  shadowColor: "#000",
+  shadowOpacity: 0.25,
+  shadowRadius: 12,
+  elevation: 4,
+}}>
+```
+
+### Item Cards (Inner Containers)
+
+```tsx
+<View style={{
+  backgroundColor: "#0B0F18",
+  borderRadius: 14,
+  padding: 14,
+  gap: 12,
+  borderWidth: 1,
+  borderColor: "#182235",
+  shadowColor: "#000",
+  shadowOpacity: 0.2,
+  shadowRadius: 8,
+  elevation: 3,
+}}>
+```
+
+## Typography Scale
+
+### Headings
+
+- **H1**: `fontSize: 24, fontWeight: "800"` (Welcome, section titles)
+- **H2**: `fontSize: 20, fontWeight: "700"` (card titles)
+- **H3**: `fontSize: 16, fontWeight: "700"` (item names)
+
+### Body Text
+
+- **Primary**: `fontSize: 14, fontWeight: "400"` (main content)
+- **Secondary**: `fontSize: 12, fontWeight: "400"` (labels, captions)
+- **Small**: `fontSize: 10, fontWeight: "700"` (badges, counts)
+
+## Interactive Elements
+
+### Accent Pills/Tags
+
+```tsx
+<View
+  style={{
+    backgroundColor: "#7aa2ff",
+    paddingHorizontal: 10 - 14,
+    paddingVertical: 6 - 8,
+    borderRadius: 999,
+  }}
+>
+  <Text style={{ color: "#0b1020", fontWeight: "800" }}>Text</Text>
+</View>
+```
+
+### Progress Bars
+
+```tsx
+<View style={{ height: 8, borderRadius: 999, backgroundColor: "#151E2A" }}>
+  <View style={{ width: `${progress}%`, backgroundColor: "#7aa2ff" }} />
+</View>
+```
+
+### Buttons
+
+- **Primary**: `backgroundColor: "#1D2A3A", borderColor: "#2A3340"`
+- **Secondary**: `borderWidth: 1, borderColor: "#2A3340"`
+- **Text**: `color: "#7aa2ff"` (primary), `color: "#E5E7EB"` (secondary)
+
+## Icon Guidelines
+
+### Feature Icons
+
+- **Size**: 18-20px
+- **Color**: `#7aa2ff` (accent)
+- **Container**: 56px circle with inner 44px circle
+- **Background**: `#0B1420` outer, `#0E1A28` inner
+
+### Status Icons
+
+- **Bell**: `#FFFFFF`
+- **Badges**: `#FF3B30` background, `#FFFFFF` text
+
+## Spacing System
+
+### Padding
+
+- **Screen**: `paddingHorizontal: 16, paddingTop: 24`
+- **Section**: `padding: 16`
+- **Item**: `padding: 14`
+- **Compact**: `padding: 10-12`
+
+### Gaps
+
+- **Section**: `gap: 12`
+- **Item**: `gap: 10-12`
+- **Tight**: `gap: 6-8`
+
+### Margins
+
+- **Between sections**: `marginTop: 12`
+- **Between items**: `marginTop: 12`
+- **Internal**: `marginTop: 8`
+
+## Layout Patterns
+
+### Grid Layout
+
+- **3-column**: `width: "33%"` for feature items
+- **Centered**: Use spacers for 2-item centering
+- **Responsive**: Flex-based with consistent spacing
+
+### List Layout
+
+- **FlatList**: Use `ItemSeparatorComponent` for spacing
+- **Header/Footer**: Use `ListHeaderComponent`/`ListFooterComponent`
+- **Avoid nesting**: Single FlatList per screen
+
+## Accessibility
+
+### Touch Targets
+
+- **Minimum**: 44x44px
+- **Recommended**: 48x48px for icons
+- **Hit slop**: `hitSlop={10}` for small targets
+
+### Labels
+
+- **Buttons**: `accessibilityRole="button"`
+- **Lists**: `accessibilityRole="list"`
+- **Descriptive**: `accessibilityLabel` for all interactive elements
+
+## Component Naming
+
+### File Structure
+
+```
+app/components/
+├── common/           # Reusable components
+│   ├── section-card.tsx
+│   └── button.tsx
+├── home/            # Home-specific components
+│   ├── welcome-card.tsx
+│   └── welcome-section.tsx
+├── batches/         # Batch-related components
+│   ├── batch-card.tsx
+│   └── batch-list.tsx
+└── features/        # Feature components
+    ├── feature-item.tsx
+    └── features-grid.tsx
+```
+
+### Export Pattern
+
+```tsx
+// Named exports for components
+export function ComponentName() { ... }
+export default ComponentName;
+
+// Named exports for types
+export interface ComponentProps { ... }
+```
+
+## Data Patterns
+
+### Local Data
+
+- Store in `app/data/` directory
+- Use TypeScript interfaces
+- Export arrays for lists
+
+### Context Pattern
+
+- Use React Context for global state
+- Provide hooks for consumption
+- Keep context focused and minimal
+
+## Performance Guidelines
+
+### FlatList Usage
+
+- Use `keyExtractor` for all lists
+- Implement `ItemSeparatorComponent` for spacing
+- Avoid nested ScrollViews with FlatLists
+
+### Image Optimization
+
+- Use `expo-image` for better performance
+- Provide fallback placeholders
+- Optimize for mobile networks
+
+## Dark Mode Considerations
+
+- All colors designed for dark mode first
+- High contrast ratios maintained
+- No light mode variants needed (dark-only app)
+
+## Consistency Rules
+
+1. **Always use SectionCard** for major content blocks
+2. **Consistent spacing** using the spacing system
+3. **Accent color** only for interactive elements and highlights
+4. **Typography scale** for all text elements
+5. **Border/shadow** for visual hierarchy
+6. **Accessibility** labels on all interactive elements
